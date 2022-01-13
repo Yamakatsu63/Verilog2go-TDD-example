@@ -10,6 +10,8 @@ module elelock(clk, reset, key, close, lock);
 
     always @(posedge clk or posedge reset) begin
         if (close == 1'b1 || reset == 1'b1)begin
+            key[3] <= 4'b1111;
+            key[2] <= 4'b1111;
             key[1] <= 4'b1111;
             key[0] <= 4'b1111;
         end
