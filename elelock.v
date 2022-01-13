@@ -8,14 +8,13 @@ module elelock(clk, key, close, lock);
     parameter SECRET = 4'h7;
 
     always @(posedge clk) begin
+        key <= keyenc(tenkey);
         if (key == SECRET)
             lock <= 1'b0;
         else if (close == 1'b1) begin
             lock <= 1'b1;
             key <= 4'b1111;
         end
-        else
-            key <= keyenc(tenkey);
     end
 
 
