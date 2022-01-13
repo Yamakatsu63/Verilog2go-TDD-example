@@ -1,21 +1,19 @@
 package main
 
-import (
-	"github.com/Verilog2go-TDD-example/src/variable"
-)
+import "github.com/Verilog2go-TDD-example/src/variable"
 
 type Elelock struct {
 	clk, close, tenkey, key, lock *variable.BitArray
 }
 
 func NewElelock() Elelock {
-	args := &Elelock{variable.NewBitArray(1), variable.NewBitArray(1), variable.NewBitArray(2), variable.NewBitArray(1), variable.NewBitArray(1)}
+	args := &Elelock{variable.NewBitArray(1), variable.NewBitArray(1), variable.NewBitArray(10), variable.NewBitArray(1), variable.NewBitArray(1)}
 	args.clk.AddPosedgeObserver(args.PreAlways1, args.Always1, args.Exec)
 	return *args
 }
 
 func NewGoroutineElelock(in []chan int, out []chan int) *Elelock {
-	elelock := &Elelock{variable.NewBitArray(1), variable.NewBitArray(1), variable.NewBitArray(2), variable.NewBitArray(1), variable.NewBitArray(1)}
+	elelock := &Elelock{variable.NewBitArray(1), variable.NewBitArray(1), variable.NewBitArray(10), variable.NewBitArray(1), variable.NewBitArray(1)}
 	go elelock.start(in, out)
 	return elelock
 }
@@ -64,7 +62,7 @@ func (elelock *Elelock) start(in []chan int, out []chan int) {
 func (Elelock *Elelock) PreAlways1() []variable.BitArray {
 	var1 := *variable.CreateBitArray(1, Elelock.clk.ToInt())
 	var2 := *variable.CreateBitArray(1, Elelock.close.ToInt())
-	var3 := *variable.CreateBitArray(2, Elelock.tenkey.ToInt())
+	var3 := *variable.CreateBitArray(10, Elelock.tenkey.ToInt())
 	var4 := *variable.CreateBitArray(8, 0)
 	var5 := *variable.CreateBitArray(8, 0)
 	var6 := *variable.CreateBitArray(8, 0)

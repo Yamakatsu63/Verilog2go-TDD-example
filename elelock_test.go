@@ -59,11 +59,11 @@ func TestElelock05(t *testing.T) {
 	// assert.Equal(t, 1, elelock.lock.ToInt())
 }
 
-func TestElelock06(t *testing.T) {
-	elelock := NewElelock()
+// func TestElelock06(t *testing.T) {
+// 	elelock := NewElelock()
 
-	assert.Equal(t, 2, len(elelock.tenkey.GetBits()))
-}
+// 	assert.Equal(t, 2, len(elelock.tenkey.GetBits()))
+// }
 
 func TestElelock07(t *testing.T) {
 	elelock := NewElelock()
