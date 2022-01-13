@@ -11,8 +11,8 @@ args.key[0] = variable.NewBitArray(4)
 args.key[1] = variable.NewBitArray(4)
 args.clk.AddPosedgeObserver(args.PreAlways1, args.Always1, args.Exec)
 args.clk.AddPosedgeObserver(args.PreAlways2, args.Always2, args.Exec)
-args.SECRET_0 = variable.CreateBits("4'h7")
-args.SECRET_1 = variable.CreateBits("4'h3")
+args.SECRET_0 = variable.CreateBits("4'h3")
+args.SECRET_1 = variable.CreateBits("4'h7")
 return *args
 }
 
