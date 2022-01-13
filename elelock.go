@@ -3,21 +3,22 @@ package main
 import "github.com/Verilog2go-TDD-example/src/variable"
 
 type Elelock struct {
-	key, lock *variable.BitArray
+	key, close, lock *variable.BitArray
 }
 
 func NewElelock() Elelock {
-	args := &Elelock{variable.NewBitArray(1), variable.NewBitArray(1)}
+	args := &Elelock{variable.NewBitArray(1), variable.NewBitArray(1), variable.NewBitArray(1)}
 	return *args
 }
 
 func NewGoroutineElelock(in []chan int, out []chan int) *Elelock {
-	elelock := &Elelock{variable.NewBitArray(1), variable.NewBitArray(1)}
+	elelock := &Elelock{variable.NewBitArray(1), variable.NewBitArray(1), variable.NewBitArray(1)}
 	go elelock.start(in, out)
 	return elelock
 }
 
 func (elelock *Elelock) Exec() {
+	elelock.lock.Assign(*elelock.close)
 }
 
 func (elelock *Elelock) start(in []chan int, out []chan int) {
@@ -27,6 +28,14 @@ func (elelock *Elelock) start(in []chan int, out []chan int) {
 		case v, ok := <-in[0]:
 			if ok {
 				elelock.key.Set(v)
+				elelock.Exec()
+				out[0] <- elelock.lock.ToInt()
+			} else {
+				return
+			}
+		case v, ok := <-in[1]:
+			if ok {
+				elelock.close.Set(v)
 				elelock.Exec()
 				out[0] <- elelock.lock.ToInt()
 			} else {
