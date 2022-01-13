@@ -3,16 +3,21 @@ module elelock(clk, key, close, lock);
     input [9:0] tenkey;
     reg [3:0] key;
     output lock;
+    wire match;
 
     parameter SECRET = 4'h7;
 
     always @(posedge clk) begin
-        key <= keyenc(tenkey);
         if (key == SECRET)
             lock <= 1'b0;
-        else if (close == 1'b1)
+        else if (close == 1'b1) begin
             lock <= 1'b1;
+            key <= 4'b1111;
+        end
+        else
+            key <= keyenc(tenkey);
     end
+
 
     function [3:0] keyenc;
     input [9:0] sw;
