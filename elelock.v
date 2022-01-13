@@ -14,6 +14,8 @@ module elelock(clk, reset, key, close, lock);
             key[0] <= 4'b1111;
         end
         else begin
+            key[3] <= key[2];
+            key[2] <= key[1];
             key[1] <= key[0];
             key[0] <= keyenc(tenkey);
         end

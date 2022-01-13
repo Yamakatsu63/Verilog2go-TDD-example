@@ -100,13 +100,17 @@ var6 := *variable.CreateBitArray(8, 0)
 var7 := *variable.CreateBitArray(8, 0)
 var8 := *variable.CreateBitArray(8, 0)
 var9 := *variable.CreateBitArray(8, 0)
+var10 := *variable.CreateBitArray(8, 0)
+var11 := *variable.CreateBitArray(8, 0)
 if variable.CheckBit(variable.CreateBits("1'b1").Equal(*Elelock.reset).Or(variable.CreateBits("1'b1").Equal(*Elelock.close))) {
 var6.Assign(*variable.CreateBits("4'b1111"))
 var7.Assign(*variable.CreateBits("4'b1111"))} else{
-var8.Assign(*Elelock.key[0])
-var9.Assign(Elelock.keyenc(*Elelock.tenkey))
+var8.Assign(*Elelock.key[2])
+var9.Assign(*Elelock.key[1])
+var10.Assign(*Elelock.key[0])
+var11.Assign(Elelock.keyenc(*Elelock.tenkey))
 }
-return []variable.BitArray{var1, var2, var3, var4, var5, var6, var7, var8, var9}
+return []variable.BitArray{var1, var2, var3, var4, var5, var6, var7, var8, var9, var10, var11}
 }
 
 func (Elelock *Elelock) PreAlways2() []variable.BitArray{
@@ -130,8 +134,10 @@ func (Elelock *Elelock) Always1(vars []variable.BitArray){
 if variable.CheckBit(variable.CreateBits("1'b1").Equal(*Elelock.reset).Or(variable.CreateBits("1'b1").Equal(*Elelock.close))) {
 Elelock.key[1].Assign(vars[5])
 Elelock.key[0].Assign(vars[6])} else{
-Elelock.key[1].Assign(vars[7])
-Elelock.key[0].Assign(vars[8])
+Elelock.key[3].Assign(vars[7])
+Elelock.key[2].Assign(vars[8])
+Elelock.key[1].Assign(vars[9])
+Elelock.key[0].Assign(vars[10])
 }
 }
 
