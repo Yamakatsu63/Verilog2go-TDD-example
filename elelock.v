@@ -13,7 +13,7 @@ module elelock(clk, key, close, lock);
     end
 
     always @(posedge clk) begin
-        if (key[0] == SECRET)
+        if (key[0] == SECRET && key[1] == 4'h3)
             lock <= 1'b0;
         else if (close == 1'b1) begin
             lock <= 1'b1;
