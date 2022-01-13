@@ -5,8 +5,8 @@ module elelock(clk, reset, key, close, lock);
     output lock;
     wire match;
 
-    parameter SECRET_0 = 4'h3, SECRET_1 = 4'h7;
-    assign match = key[0] == SECRET_0 && key[1] == SECRET_1;
+    parameter SECRET_0 = 4'h3, SECRET_1 = 4'h6, SECRET_2 = 4'h9, SECRET_3 = 4'h5;
+    assign match = key[0] == SECRET_0 && key[1] == SECRET_1 && key[2] == SECRET_2 && key[3] == SECRET_3;
 
     always @(posedge clk or posedge reset) begin
         if (close == 1'b1 || reset == 1'b1)begin

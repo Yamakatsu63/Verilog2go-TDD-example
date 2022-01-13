@@ -92,14 +92,14 @@ func TestElelock09(t *testing.T) {
 	assert.Equal(t, 7, elelock.key[0].ToInt())
 }
 
-func TestElelock10(t *testing.T) {
-	elelock := NewElelock()
+// func TestElelock10(t *testing.T) {
+// 	elelock := NewElelock()
 
-	elelock.clk.Set(0)
-	elelock.tenkey.SetBits("10'b0010000000")
-	elelock.clk.Set(1)
-	assert.Equal(t, 0, elelock.lock.ToInt())
-}
+// 	elelock.clk.Set(0)
+// 	elelock.tenkey.SetBits("10'b0010000000")
+// 	elelock.clk.Set(1)
+// 	assert.Equal(t, 0, elelock.lock.ToInt())
+// }
 
 func TestElelock11(t *testing.T) {
 	elelock := NewElelock()
@@ -148,17 +148,17 @@ func TestElelock14(t *testing.T) {
 	assert.Equal(t, 7, elelock.key[1].ToInt())
 }
 
-func TestElelock15(t *testing.T) {
-	elelock := NewElelock()
+// func TestElelock15(t *testing.T) {
+// 	elelock := NewElelock()
 
-	elelock.clk.Set(0)
-	elelock.tenkey.SetBits("10'b0010000000")
-	elelock.clk.Set(1)
-	elelock.clk.Set(0)
-	elelock.tenkey.SetBits("10'b0000001000")
-	elelock.clk.Set(1)
-	assert.Equal(t, 0, elelock.lock.ToInt())
-}
+// 	elelock.clk.Set(0)
+// 	elelock.tenkey.SetBits("10'b0010000000")
+// 	elelock.clk.Set(1)
+// 	elelock.clk.Set(0)
+// 	elelock.tenkey.SetBits("10'b0000001000")
+// 	elelock.clk.Set(1)
+// 	assert.Equal(t, 0, elelock.lock.ToInt())
+// }
 
 func TestElelock16(t *testing.T) {
 	elelock := NewElelock()
@@ -171,37 +171,37 @@ func TestElelock16(t *testing.T) {
 	assert.Equal(t, 15, elelock.key[0].ToInt())
 }
 
-func TestElelock17(t *testing.T) {
-	elelock := NewElelock()
+// func TestElelock17(t *testing.T) {
+// 	elelock := NewElelock()
 
-	elelock.clk.Set(0)
-	// Close the key
-	elelock.close.Set(1)
-	elelock.clk.Set(1)
-	assert.Equal(t, 1, elelock.lock.ToInt())
-	assert.Equal(t, 15, elelock.key[1].ToInt())
-	assert.Equal(t, 15, elelock.key[0].ToInt())
-	elelock.clk.Set(0)
-	elelock.close.Set(0)
-	// input 7
-	elelock.tenkey.SetBits("10'b0010000000")
-	elelock.clk.Set(1)
-	elelock.clk.Set(0)
-	// input 3
-	elelock.tenkey.SetBits("10'b0000001000")
-	elelock.clk.Set(1)
-	// Make sure the lock is open
-	assert.Equal(t, 0, elelock.lock.ToInt())
-	elelock.clk.Set(0)
-	elelock.tenkey.Set(0)
-	elelock.clk.Set(1)
-	elelock.clk.Set(0)
-	// Close the key again
-	elelock.close.Set(1)
-	elelock.clk.Set(1)
-	assert.Equal(t, 1, elelock.lock.ToInt())
-	assert.Equal(t, 15, elelock.key[0].ToInt())
-}
+// 	elelock.clk.Set(0)
+// 	// Close the key
+// 	elelock.close.Set(1)
+// 	elelock.clk.Set(1)
+// 	assert.Equal(t, 1, elelock.lock.ToInt())
+// 	assert.Equal(t, 15, elelock.key[1].ToInt())
+// 	assert.Equal(t, 15, elelock.key[0].ToInt())
+// 	elelock.clk.Set(0)
+// 	elelock.close.Set(0)
+// 	// input 7
+// 	elelock.tenkey.SetBits("10'b0010000000")
+// 	elelock.clk.Set(1)
+// 	elelock.clk.Set(0)
+// 	// input 3
+// 	elelock.tenkey.SetBits("10'b0000001000")
+// 	elelock.clk.Set(1)
+// 	// Make sure the lock is open
+// 	assert.Equal(t, 0, elelock.lock.ToInt())
+// 	elelock.clk.Set(0)
+// 	elelock.tenkey.Set(0)
+// 	elelock.clk.Set(1)
+// 	elelock.clk.Set(0)
+// 	// Close the key again
+// 	elelock.close.Set(1)
+// 	elelock.clk.Set(1)
+// 	assert.Equal(t, 1, elelock.lock.ToInt())
+// 	assert.Equal(t, 15, elelock.key[0].ToInt())
+// }
 
 func TestElelock18(t *testing.T) {
 	elelock := NewElelock()
@@ -213,46 +213,46 @@ func TestElelock18(t *testing.T) {
 	assert.Equal(t, 15, elelock.key[0].ToInt())
 }
 
-func TestElelock19(t *testing.T) {
-	elelock := NewElelock()
+// func TestElelock19(t *testing.T) {
+// 	elelock := NewElelock()
 
-	elelock.clk.Set(0)
-	elelock.reset.Set(1)
-	elelock.clk.Set(1)
-	assert.Equal(t, 1, elelock.lock.ToInt())
-}
+// 	elelock.clk.Set(0)
+// 	elelock.reset.Set(1)
+// 	elelock.clk.Set(1)
+// 	assert.Equal(t, 1, elelock.lock.ToInt())
+// }
 
-func TestElelock20(t *testing.T) {
-	elelock := NewElelock()
+// func TestElelock20(t *testing.T) {
+// 	elelock := NewElelock()
 
-	elelock.clk.Set(0)
-	// Close the key
-	elelock.close.Set(1)
-	elelock.clk.Set(1)
-	assert.Equal(t, 1, elelock.lock.ToInt())
-	assert.Equal(t, 15, elelock.key[1].ToInt())
-	assert.Equal(t, 15, elelock.key[0].ToInt())
-	elelock.clk.Set(0)
-	elelock.close.Set(0)
-	// input 7
-	elelock.tenkey.SetBits("10'b0010000000")
-	elelock.clk.Set(1)
-	elelock.clk.Set(0)
-	// input 3
-	elelock.tenkey.SetBits("10'b0000001000")
-	elelock.clk.Set(1)
-	// Make sure the lock is open
-	assert.Equal(t, 0, elelock.lock.ToInt())
-	elelock.clk.Set(0)
-	elelock.tenkey.Set(0)
-	elelock.clk.Set(1)
-	elelock.clk.Set(0)
-	// Reset
-	elelock.reset.Set(1)
-	elelock.clk.Set(1)
-	assert.Equal(t, 1, elelock.lock.ToInt())
-	assert.Equal(t, 15, elelock.key[0].ToInt())
-}
+// 	elelock.clk.Set(0)
+// 	// Close the key
+// 	elelock.close.Set(1)
+// 	elelock.clk.Set(1)
+// 	assert.Equal(t, 1, elelock.lock.ToInt())
+// 	assert.Equal(t, 15, elelock.key[1].ToInt())
+// 	assert.Equal(t, 15, elelock.key[0].ToInt())
+// 	elelock.clk.Set(0)
+// 	elelock.close.Set(0)
+// 	// input 7
+// 	elelock.tenkey.SetBits("10'b0010000000")
+// 	elelock.clk.Set(1)
+// 	elelock.clk.Set(0)
+// 	// input 3
+// 	elelock.tenkey.SetBits("10'b0000001000")
+// 	elelock.clk.Set(1)
+// 	// Make sure the lock is open
+// 	assert.Equal(t, 0, elelock.lock.ToInt())
+// 	elelock.clk.Set(0)
+// 	elelock.tenkey.Set(0)
+// 	elelock.clk.Set(1)
+// 	elelock.clk.Set(0)
+// 	// Reset
+// 	elelock.reset.Set(1)
+// 	elelock.clk.Set(1)
+// 	assert.Equal(t, 1, elelock.lock.ToInt())
+// 	assert.Equal(t, 15, elelock.key[0].ToInt())
+// }
 
 func TestElelock21(t *testing.T) {
 	elelock := NewElelock()
@@ -282,4 +282,22 @@ func TestElelock22(t *testing.T) {
 	assert.Equal(t, 3, elelock.key[2].ToInt())
 	assert.Equal(t, 8, elelock.key[1].ToInt())
 	assert.Equal(t, 0, elelock.key[0].ToInt())
+}
+
+func TestElelock23(t *testing.T) {
+	elelock := NewElelock()
+
+	elelock.clk.Set(0)
+	elelock.tenkey.SetBits("10'b0000100000")
+	elelock.clk.Set(1)
+	elelock.clk.Set(0)
+	elelock.tenkey.SetBits("10'b1000000000")
+	elelock.clk.Set(1)
+	elelock.clk.Set(0)
+	elelock.tenkey.SetBits("10'b0001000000")
+	elelock.clk.Set(1)
+	elelock.clk.Set(0)
+	elelock.tenkey.SetBits("10'b0000001000")
+	elelock.clk.Set(1)
+	assert.Equal(t, 0, elelock.lock.ToInt())
 }
