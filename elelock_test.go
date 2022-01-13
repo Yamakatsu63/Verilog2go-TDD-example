@@ -91,3 +91,12 @@ func TestElelock09(t *testing.T) {
 	elelock.clk.Set(1)
 	assert.Equal(t, 7, elelock.key.ToInt())
 }
+
+func TestElelock10(t *testing.T) {
+	elelock := NewElelock()
+
+	elelock.clk.Set(0)
+	elelock.tenkey.SetBits("10'b0010000000")
+	elelock.clk.Set(1)
+	assert.Equal(t, 0, elelock.lock.ToInt())
+}
