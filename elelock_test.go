@@ -100,3 +100,30 @@ func TestElelock10(t *testing.T) {
 	elelock.clk.Set(1)
 	assert.Equal(t, 0, elelock.lock.ToInt())
 }
+
+func TestElelock11(t *testing.T) {
+	elelock := NewElelock()
+
+	elelock.clk.Set(0)
+	elelock.close.Set(1)
+	elelock.clk.Set(1)
+	assert.Equal(t, 1, elelock.lock.ToInt())
+	assert.Equal(t, 15, elelock.key.ToInt())
+}
+
+func TestElelock12(t *testing.T) {
+	elelock := NewElelock()
+
+	elelock.clk.Set(0)
+	elelock.tenkey.SetBits("10'b0010000000")
+	elelock.clk.Set(1)
+	assert.Equal(t, 0, elelock.lock.ToInt())
+	elelock.clk.Set(0)
+	elelock.tenkey.Set(0)
+	elelock.clk.Set(1)
+	elelock.clk.Set(0)
+	elelock.close.Set(1)
+	elelock.clk.Set(1)
+	assert.Equal(t, 1, elelock.lock.ToInt())
+	assert.Equal(t, 15, elelock.key.ToInt())
+}
