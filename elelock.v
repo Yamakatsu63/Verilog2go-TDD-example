@@ -1,7 +1,7 @@
 module elelock(clk, key, close, lock);
     input clk, close;
     input [9:0] tenkey;
-    reg key;
+    reg [3:0] key;
     output lock;
 
     always @(posedge clk) begin
@@ -12,11 +12,19 @@ module elelock(clk, key, close, lock);
             lock <= 1'b1;
     end
 
-    function [1:0]keyenc;
-    input [1:0] sw;
+    function [3:0] keyenc;
+    input [9:0] sw;
         case(sw)
-            2'b01: keyenc = 1'b0;
-            2'b10: keyenc = 1'b1;
+            10'b0000000001: keyenc = 4'h0;
+            10'b0000000010: keyenc = 4'h1;
+            10'b0000000100: keyenc = 4'h2;
+            10'b0000001000: keyenc = 4'h3;
+            10'b0000010000: keyenc = 4'h4;
+            10'b0000100000: keyenc = 4'h5;
+            10'b0001000000: keyenc = 4'h6;
+            10'b0010000000: keyenc = 4'h7;
+            10'b0100000000: keyenc = 4'h8;
+            10'b1000000000: keyenc = 4'h9;
         endcase
     endfunction
 endmodule
