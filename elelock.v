@@ -1,7 +1,7 @@
 module elelock(clk, reset, key, close, lock);
     input clk, reset, close;
     input [9:0] tenkey;
-    reg [3:0] key [0:1];
+    reg [3:0] key [0:3];
     output lock;
     wire match;
 
