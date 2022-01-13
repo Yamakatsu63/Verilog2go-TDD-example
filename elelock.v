@@ -18,6 +18,7 @@ module elelock(clk, key, close, lock);
             lock <= 1'b0;
         else if (close == 1'b1) begin
             lock <= 1'b1;
+            key[1] <= 4'b1111;
             key[0] <= 4'b1111;
         end
     end
