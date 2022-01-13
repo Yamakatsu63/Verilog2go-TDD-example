@@ -128,11 +128,11 @@ func TestElelock12(t *testing.T) {
 	assert.Equal(t, 15, elelock.key[0].ToInt())
 }
 
-func TestElelock13(t *testing.T) {
-	elelock := NewElelock()
+// func TestElelock13(t *testing.T) {
+// 	elelock := NewElelock()
 
-	assert.Equal(t, 2, len(elelock.key))
-}
+// 	assert.Equal(t, 2, len(elelock.key))
+// }
 
 func TestElelock14(t *testing.T) {
 	elelock := NewElelock()
@@ -252,4 +252,10 @@ func TestElelock20(t *testing.T) {
 	elelock.clk.Set(1)
 	assert.Equal(t, 1, elelock.lock.ToInt())
 	assert.Equal(t, 15, elelock.key[0].ToInt())
+}
+
+func TestElelock21(t *testing.T) {
+	elelock := NewElelock()
+
+	assert.Equal(t, 4, len(elelock.key))
 }

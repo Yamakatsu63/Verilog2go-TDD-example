@@ -6,9 +6,11 @@ key []*variable.BitArray
 }
 
 func NewElelock() Elelock{
-args := &Elelock{variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(10),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),make([]*variable.BitArray, 2)}
+args := &Elelock{variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(10),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),make([]*variable.BitArray, 4)}
 args.key[0] = variable.NewBitArray(4)
 args.key[1] = variable.NewBitArray(4)
+args.key[2] = variable.NewBitArray(4)
+args.key[3] = variable.NewBitArray(4)
 args.clk.AddPosedgeObserver(args.PreAlways1, args.Always1, args.Exec)
 args.reset.AddPosedgeObserver(args.PreAlways1, args.Always1, args.Exec)
 args.clk.AddPosedgeObserver(args.PreAlways2, args.Always2, args.Exec)
@@ -19,9 +21,11 @@ return *args
 }
 
 func NewGoroutineElelock (in []chan int, out []chan int) *Elelock{
-elelock := &Elelock{variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(10),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),make([]*variable.BitArray, 2)}
+elelock := &Elelock{variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(10),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),make([]*variable.BitArray, 4)}
 elelock.key[0] = variable.NewBitArray(4)
 elelock.key[1] = variable.NewBitArray(4)
+elelock.key[2] = variable.NewBitArray(4)
+elelock.key[3] = variable.NewBitArray(4)
 go elelock.start(in, out)
 return elelock
 }
