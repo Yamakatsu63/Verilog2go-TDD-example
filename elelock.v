@@ -1,6 +1,6 @@
-module elelock(key, lock);
-    input key;
+module elelock(key, close, lock);
+    input key, close;
     output lock;
 
-    assign lock = !key;
+    assign lock = close;
 endmodule
