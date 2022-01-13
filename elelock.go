@@ -1,22 +1,23 @@
 package main
 import "github.com/Verilog2go-TDD-example/src/variable"
 type Elelock struct{
-clk,close,tenkey,lock,match,SECRET *variable.BitArray
+clk,close,tenkey,lock,match,SECRET_0,SECRET_1 *variable.BitArray
 key []*variable.BitArray
 }
 
 func NewElelock() Elelock{
-args := &Elelock{variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(10),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),make([]*variable.BitArray, 2)}
+args := &Elelock{variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(10),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),make([]*variable.BitArray, 2)}
 args.key[0] = variable.NewBitArray(4)
 args.key[1] = variable.NewBitArray(4)
 args.clk.AddPosedgeObserver(args.PreAlways1, args.Always1, args.Exec)
 args.clk.AddPosedgeObserver(args.PreAlways2, args.Always2, args.Exec)
-args.SECRET = variable.CreateBits("4'h7")
+args.SECRET_0 = variable.CreateBits("4'h7")
+args.SECRET_1 = variable.CreateBits("4'h3")
 return *args
 }
 
 func NewGoroutineElelock (in []chan int, out []chan int) *Elelock{
-elelock := &Elelock{variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(10),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),make([]*variable.BitArray, 2)}
+elelock := &Elelock{variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(10),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),variable.NewBitArray(1),make([]*variable.BitArray, 2)}
 elelock.key[0] = variable.NewBitArray(4)
 elelock.key[1] = variable.NewBitArray(4)
 go elelock.start(in, out)
@@ -24,6 +25,7 @@ return elelock
 }
 
 func (elelock *Elelock) Exec() {
+elelock.match.Assign(elelock.SECRET_1.Equal(*elelock.key[1]).And(elelock.SECRET_0.Equal(*elelock.key[0])))
 }
 
 func (elelock *Elelock) start(in []chan int, out []chan int) {
@@ -90,7 +92,7 @@ var4 := *variable.CreateBitArray(1, Elelock.match.ToInt())
 var5 := *variable.CreateBitArray(8, 0)
 var6 := *variable.CreateBitArray(8, 0)
 var7 := *variable.CreateBitArray(8, 0)
-if variable.CheckBit(variable.CreateBits("4'h3").Equal(*Elelock.key[1]).And(Elelock.SECRET.Equal(*Elelock.key[0]))) {
+if variable.CheckBit(*Elelock.match) {
 var5.Assign(*variable.CreateBits("1'b0"))} else{
 if variable.CheckBit(variable.CreateBits("1'b1").Equal(*Elelock.close)) {
 var6.Assign(*variable.CreateBits("1'b1"))
@@ -106,7 +108,7 @@ Elelock.key[0].Assign(vars[5])
 }
 
 func (Elelock *Elelock) Always2(vars []variable.BitArray){
-if variable.CheckBit(variable.CreateBits("4'h3").Equal(*Elelock.key[1]).And(Elelock.SECRET.Equal(*Elelock.key[0]))) {
+if variable.CheckBit(*Elelock.match) {
 Elelock.lock.Assign(vars[4])} else{
 if variable.CheckBit(variable.CreateBits("1'b1").Equal(*Elelock.close)) {
 Elelock.lock.Assign(vars[5])
