@@ -8,19 +8,22 @@ module elelock(clk, reset, key, close, lock);
     parameter SECRET_0 = 4'h3, SECRET_1 = 4'h7;
     assign match = key[0] == SECRET_0 && key[1] == SECRET_1;
 
-    always @(posedge clk) begin
-        key[1] <= key[0];
-        key[0] <= keyenc(tenkey);
+    always @(posedge clk or posedge reset) begin
+        if (close == 1'b1 || reset == 1'b1)begin
+            key[1] <= 4'b1111;
+            key[0] <= 4'b1111;
+        end
+        else begin
+            key[1] <= key[0];
+            key[0] <= keyenc(tenkey);
+        end
     end
 
     always @(posedge clk or posedge reset) begin
         if (match)
             lock <= 1'b0;
-        else if (close == 1'b1 || reset == 1'b1) begin
+        else if (close == 1'b1 || reset == 1'b1)
             lock <= 1'b1;
-            key[1] <= 4'b1111;
-            key[0] <= 4'b1111;
-        end
     end
 
     function [3:0] keyenc;
