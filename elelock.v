@@ -1,5 +1,6 @@
 module elelock(clk, key, close, lock);
-    input clk, key, close;
+    input clk, close;
+    input [1:0] key;
     output lock;
 
     always @(posedge clk) begin
