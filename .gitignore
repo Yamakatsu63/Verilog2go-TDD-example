@@ -1,0 +1,5 @@
+*.exe
+./antlr/
+./src
+./Expression.g4
+./Verilog.g4
