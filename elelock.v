@@ -10,6 +10,9 @@ module elelock(clk, key, close, lock);
     always @(posedge clk) begin
         key[1] <= key[0];
         key[0] <= keyenc(tenkey);
+    end
+
+    always @(posedge clk) begin
         if (key[0] == SECRET)
             lock <= 1'b0;
         else if (close == 1'b1) begin
@@ -17,7 +20,6 @@ module elelock(clk, key, close, lock);
             key[0] <= 4'b1111;
         end
     end
-
 
     function [3:0] keyenc;
     input [9:0] sw;
