@@ -1,5 +1,5 @@
-module elelock(clk, key, close, lock);
-    input clk, close;
+module elelock(clk, reset, key, close, lock);
+    input clk, reset, close;
     input [9:0] tenkey;
     reg [3:0] key [0:1];
     output lock;
@@ -13,10 +13,10 @@ module elelock(clk, key, close, lock);
         key[0] <= keyenc(tenkey);
     end
 
-    always @(posedge clk) begin
+    always @(posedge clk or posedge reset) begin
         if (match)
             lock <= 1'b0;
-        else if (close == 1'b1) begin
+        else if (close == 1'b1 || reset == 1'b1) begin
             lock <= 1'b1;
             key[1] <= 4'b1111;
             key[0] <= 4'b1111;

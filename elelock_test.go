@@ -209,7 +209,6 @@ func TestElelock18(t *testing.T) {
 	elelock.clk.Set(0)
 	elelock.reset.Set(1)
 	elelock.clk.Set(1)
-	assert.Equal(t, 1, elelock.lock.ToInt())
 	assert.Equal(t, 15, elelock.key[1].ToInt())
 	assert.Equal(t, 15, elelock.key[0].ToInt())
 }
