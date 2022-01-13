@@ -6,7 +6,7 @@ module elelock(clk, key, close, lock);
 
     always @(posedge clk) begin
         key <= keyenc(tenkey);
-        if (key == 1'b1)
+        if (key == 4'h7)
             lock <= 1'b0;
         else if (close == 1'b1)
             lock <= 1'b1;

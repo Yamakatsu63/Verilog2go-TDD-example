@@ -65,7 +65,7 @@ var4 := *variable.CreateBitArray(8, 0)
 var5 := *variable.CreateBitArray(8, 0)
 var6 := *variable.CreateBitArray(8, 0)
 var4.Assign(Elelock.keyenc(*Elelock.tenkey))
-if variable.CheckBit(variable.CreateBits("1'b1").Equal(*Elelock.key)) {
+if variable.CheckBit(variable.CreateBits("4'h7").Equal(*Elelock.key)) {
 var5.Assign(*variable.CreateBits("1'b0"))} else{
 if variable.CheckBit(variable.CreateBits("1'b1").Equal(*Elelock.close)) {
 var6.Assign(*variable.CreateBits("1'b1"))
@@ -76,7 +76,7 @@ return []variable.BitArray{var1, var2, var3, var4, var5, var6}
 
 func (Elelock *Elelock) Always1(vars []variable.BitArray){
 Elelock.key.Assign(vars[3])
-if variable.CheckBit(variable.CreateBits("1'b1").Equal(*Elelock.key)) {
+if variable.CheckBit(variable.CreateBits("4'h7").Equal(*Elelock.key)) {
 Elelock.lock.Assign(vars[4])} else{
 if variable.CheckBit(variable.CreateBits("1'b1").Equal(*Elelock.close)) {
 Elelock.lock.Assign(vars[5])
