@@ -1,5 +1,8 @@
 *.exe
-./antlr/
-./src
-./Expression.g4
-./Verilog.g4
+antlr/
+src/
+Expression.g4
+Verilog.g4
+go.mod
+go.sum
+main.go
