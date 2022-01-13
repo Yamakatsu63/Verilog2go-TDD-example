@@ -202,3 +202,54 @@ func TestElelock17(t *testing.T) {
 	assert.Equal(t, 1, elelock.lock.ToInt())
 	assert.Equal(t, 15, elelock.key[0].ToInt())
 }
+
+func TestElelock18(t *testing.T) {
+	elelock := NewElelock()
+
+	elelock.clk.Set(0)
+	elelock.reset.Set(1)
+	elelock.clk.Set(1)
+	assert.Equal(t, 15, elelock.key[1].ToInt())
+	assert.Equal(t, 15, elelock.key[0].ToInt())
+}
+
+func TestElelock19(t *testing.T) {
+	elelock := NewElelock()
+
+	elelock.clk.Set(0)
+	elelock.reset.Set(1)
+	elelock.clk.Set(1)
+	assert.Equal(t, 1, elelock.lock.ToInt())
+}
+
+func TestElelock20(t *testing.T) {
+	elelock := NewElelock()
+
+	elelock.clk.Set(0)
+	// Close the key
+	elelock.close.Set(1)
+	elelock.clk.Set(1)
+	assert.Equal(t, 1, elelock.lock.ToInt())
+	assert.Equal(t, 15, elelock.key[1].ToInt())
+	assert.Equal(t, 15, elelock.key[0].ToInt())
+	elelock.clk.Set(0)
+	elelock.close.Set(0)
+	// input 7
+	elelock.tenkey.SetBits("10'b0010000000")
+	elelock.clk.Set(1)
+	elelock.clk.Set(0)
+	// input 3
+	elelock.tenkey.SetBits("10'b0000001000")
+	elelock.clk.Set(1)
+	// Make sure the lock is open
+	assert.Equal(t, 0, elelock.lock.ToInt())
+	elelock.clk.Set(0)
+	elelock.tenkey.Set(0)
+	elelock.clk.Set(1)
+	elelock.clk.Set(0)
+	// Reset
+	elelock.reset.Set(1)
+	elelock.clk.Set(1)
+	assert.Equal(t, 1, elelock.lock.ToInt())
+	assert.Equal(t, 15, elelock.key[0].ToInt())
+}
