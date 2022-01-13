@@ -18,6 +18,7 @@ func NewGoroutineElelock(in []chan int, out []chan int) *Elelock {
 }
 
 func (elelock *Elelock) Exec() {
+	elelock.lock.Assign(elelock.key.Not())
 }
 
 func (elelock *Elelock) start(in []chan int, out []chan int) {
