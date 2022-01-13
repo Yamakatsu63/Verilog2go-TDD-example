@@ -313,3 +313,15 @@ func TestElelock24(t *testing.T) {
 	assert.Equal(t, 15, elelock.key[1].ToInt())
 	assert.Equal(t, 15, elelock.key[0].ToInt())
 }
+
+func TestElelock25(t *testing.T) {
+	elelock := NewElelock()
+
+	elelock.clk.Set(0)
+	elelock.reset.Set(1)
+	elelock.clk.Set(1)
+	assert.Equal(t, 15, elelock.key[3].ToInt())
+	assert.Equal(t, 15, elelock.key[2].ToInt())
+	assert.Equal(t, 15, elelock.key[1].ToInt())
+	assert.Equal(t, 15, elelock.key[0].ToInt())
+}
