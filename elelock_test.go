@@ -253,3 +253,9 @@ func TestElelock20(t *testing.T) {
 	assert.Equal(t, 1, elelock.lock.ToInt())
 	assert.Equal(t, 15, elelock.key[0].ToInt())
 }
+
+func TestElelock21(t *testing.T) {
+	elelock := NewElelock()
+
+	assert.Equal(t, 4, len(elelock.key))
+}
